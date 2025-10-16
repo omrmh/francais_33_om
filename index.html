@@ -1313,7 +1313,10 @@ function changeTeacherPassword() {
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyR-VPJ3cI0VuiFOPI9kcuN4Q0S4RHIfRxYq6gWpO9UhuQ1wa2a1JDTg1n_uwYGMsHr/exec"; // ضع رابطك هنا
 
-async function sendResultToSheet(studentName, quizTitle, score, total, percentage, timeTakenSeconds) {
+async function sendResultToSheet(studentName, "Test Quiz", correctAnswers, totalQuestions, percentage, timeSpent);
+
+)
+    {
   try {
     const response = await fetch(SCRIPT_URL, {
       method: 'POST',
