@@ -1311,42 +1311,31 @@ function changeTeacherPassword() {
 // =================================================
 
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyR-VPJ3cI0VuiFOPI9kcuN4Q0S4RHIfRxYq6gWpO9UhuQ1wa2a1JDTg1n_uwYGMsHr/exec"; // ضع رابطك هنا
+// مثال: إرسال نتيجة إلى Google Apps Script Web App
+async function sendResultToSheet(resultObj) {
+  // ضع هنا رابط الويب آب الذي حصلت عليه بعد النشر
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx_DiIbH9C5xFdxyIT3_Ydb-XkMXF6jIT5WzfGjg23ElgzBwFkGh2yRCfDTc1HG1-AN/exec";
 
-async function sendResultToSheet(studentName, "Test Quiz", correctAnswers, totalQuestions, percentage, timeSpent);
+  // مثلاً، يمكنك إضافة مفتاح سري في الجسد أو header:
+  // resultObj.apiKey = "MY_SECRET_KEY";
 
-)
-    {
   try {
-    const response = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
+        // لو أردت header سري: "X-Api-Key": "MY_SECRET"
       },
-      body: JSON.stringify({
-        studentName,
-        quizTitle,
-        score,
-        total,
-        percentage,
-        timeTakenSeconds
-      })
+      body: JSON.stringify(resultObj)
     });
-    console.log("تم إرسال النتيجة بنجاح");
-  } catch (error) {
-    console.error("فشل في إرسال النتيجة:", error);
+    const json = await res.json();
+    console.log("sendResultToSheet response:", json);
+    return json;
+  } catch (err) {
+    console.error("Failed sending result:", err);
+    return { status: "error", message: err.toString() };
   }
 }
-
-
-    
-    
-    
-    
-    
-    
-
 
 /* مثال طريقة الاستخدام بعد انتهاء الاختبار */
 function onQuizFinish() {
